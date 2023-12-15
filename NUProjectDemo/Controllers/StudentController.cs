@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Text.Encodings.Web;
 
 namespace NUProjectDemo.Controllers
 {
@@ -16,7 +17,16 @@ namespace NUProjectDemo.Controllers
             {
                 return View("Views/Home/Privacy.cshtml");
             }
-            return View("Views/Home/Privacy.cshtml");
+            return View();
+        }
+        // GET: /HelloWorld/Welcome/ 
+        // Requires using System.Text.Encodings.Web;
+        public IActionResult Welcome(string name, int numTimes = 1)
+        {
+            ViewData["Message"] = "Hello " + name;
+            ViewData["NumTimes"] = numTimes;
+
+            return View();
         }
     }
     
