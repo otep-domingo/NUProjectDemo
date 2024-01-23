@@ -3,27 +3,27 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace NUProjectDemo.Controllers
 {
-    public class StudentController : Controller
+    public class ReadWriteController : Controller
     {
-        // GET: StudentController
+        // GET: ReadWriteController
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: StudentController/Details/5
+        // GET: ReadWriteController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: StudentController/Create
+        // GET: ReadWriteController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: StudentController/Create
+        // POST: ReadWriteController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -38,13 +38,13 @@ namespace NUProjectDemo.Controllers
             }
         }
 
-        // GET: StudentController/Edit/5
+        // GET: ReadWriteController/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: StudentController/Edit/5
+        // POST: ReadWriteController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -59,13 +59,13 @@ namespace NUProjectDemo.Controllers
             }
         }
 
-        // GET: StudentController/Delete/5
+        // GET: ReadWriteController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: StudentController/Delete/5
+        // POST: ReadWriteController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)

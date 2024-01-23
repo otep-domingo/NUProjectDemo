@@ -1,29 +1,44 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using NUProjectDemo.Data;
 
 namespace NUProjectDemo.Controllers
 {
-    public class StudentController : Controller
+    public class ProductController : Controller
     {
-        // GET: StudentController
-        public ActionResult Index()
+        private readonly ApplicationDbContext _context;
+
+        public ProductController(ApplicationDbContext context)
         {
-            return View();
+            _context = context;
         }
 
-        // GET: StudentController/Details/5
+
+        // GET: ProductController
+        public async Task<IActionResult> Index()
+        {
+            return View(await _context.Products.ToListAsync());
+        }
+
+        public ActionResult Index2()
+        {
+            return View(_context.Products.ToList());
+        }
+
+        // GET: ProductController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: StudentController/Create
+        // GET: ProductController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: StudentController/Create
+        // POST: ProductController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -38,13 +53,22 @@ namespace NUProjectDemo.Controllers
             }
         }
 
-        // GET: StudentController/Edit/5
+        // GET: ProductController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            if(id==null || _context.Products == null)
+            {
+                return NotFound();
+            }
+            var p = _context.Products.Find(id);
+            if (p == null)
+            {
+                return NotFound();
+            }
+            return View(p);
         }
 
-        // POST: StudentController/Edit/5
+        // POST: ProductController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -59,13 +83,13 @@ namespace NUProjectDemo.Controllers
             }
         }
 
-        // GET: StudentController/Delete/5
+        // GET: ProductController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: StudentController/Delete/5
+        // POST: ProductController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
