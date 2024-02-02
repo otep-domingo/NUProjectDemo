@@ -29,7 +29,16 @@ namespace NUProjectDemo.Controllers
         // GET: ProductController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            if (id == null || _context.Products == null)
+            {
+                return NotFound();
+            }
+            var p = _context.Products.Find(id);
+            if (p == null)
+            {
+                return NotFound();
+            }
+            return View(p);
         }
 
         // GET: ProductController/Create
@@ -41,22 +50,40 @@ namespace NUProjectDemo.Controllers
         // POST: ProductController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        //public ActionResult Create(IFormCollection collection)
+        //{
+        //    try
+        //    {
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
+        public ActionResult Create([Bind()] Models.Products product)
         {
-            try
+          
+            if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    _context.Add(product); //preparing the SQL statement for add
+                    _context.SaveChanges(); //responsible for executing the add sql
+                    return RedirectToAction(nameof(Index)); // return View("Index");
+                }
+                catch
+                {
+                    return View();
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return View(product);
         }
 
         // GET: ProductController/Edit/5
         public ActionResult Edit(int id)
         {
-            if(id==null || _context.Products == null)
+            if (id == null || _context.Products == null)
             {
                 return NotFound();
             }
@@ -75,6 +102,17 @@ namespace NUProjectDemo.Controllers
         {
             try
             {
+                Models.Products p = new Models.Products();
+                p.idproducts = int.Parse(collection["idproducts"]);
+                p.productname = collection["productname"];
+                p.datetimeadded = DateTime.Parse(collection["datetimeadded"]);
+                p.category = collection["category"];
+                p.price = double.Parse(collection["price"]);
+                p.description = collection["description"];
+
+                _context.Update(p);
+                _context.SaveChanges();
+
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -82,25 +120,69 @@ namespace NUProjectDemo.Controllers
                 return View();
             }
         }
+        //public ActionResult Edit(int id, [Bind()]Models.Products product)
+        //{
+        //    if (id != product.idproducts)
+        //    {
+        //        return View("InvalidAction");
+
+        //    }
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            _context.Update(product); //preparing the SQL statement for update
+        //            _context.SaveChanges(); //responsible for executint eh update
+        //            return RedirectToAction(nameof(Index)); // return View("Index");
+        //        }
+        //        catch
+        //        {
+        //            return View();
+        //        }
+        //    }
+        //    return View(product);
+        //}
 
         // GET: ProductController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            if (id == null || _context.Products == null)
+            {
+                return NotFound();
+            }
+            var p = _context.Products.Find(id);
+            if (p == null)
+            {
+                return NotFound();
+            }
+            return View(p);
         }
 
         // POST: ProductController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, [Bind()] Models.Products product)
         {
-            try
             {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
+                if (id != product.idproducts)
+                {
+                    return View("InvalidAction");
+
+                }
+                if (ModelState.IsValid)
+                {
+                    try
+                    {
+                        _context.Remove(product); //preparing the SQL statement for delete
+                        _context.SaveChanges(); //responsible for executing the delete
+                        return RedirectToAction(nameof(Index)); // return View("Index");
+                    }
+                    catch
+                    {
+                        return View();
+                    }
+                }
+                return View(product);
             }
         }
     }

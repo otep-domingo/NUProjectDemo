@@ -10,7 +10,7 @@ namespace NUProjectDemo.Models
         public string category { get; set; }
         public double price { get; set; }
         public DateTime datetimeadded { get; set; }
-        public string description { get; set; }
+        public string? description { get; set; }
 
     }
 }

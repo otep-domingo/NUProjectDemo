@@ -3,6 +3,7 @@
     ViewData["Title"] = "Poducts List";
 }
 <h2>Poducts List</h2>
+<a asp-action="Create">Add New Product</a>
 <table class="table">
     <thead>
         <tr>
@@ -11,7 +12,7 @@
             <th>@Html.DisplayNameFor(model=>model.category)</th>
             <th>@Html.DisplayNameFor(model=>model.price)</th>
             <th>@Html.DisplayNameFor(model=>model.datetimeadded)</th>
-            <th>@Html.DisplayNameFor(model=>model.description)</th>
+            @*<th>@Html.DisplayNameFor(model=>model.description)</th>*@
             <th>Actions</th>
         </tr>
     </thead>
@@ -24,7 +25,7 @@
                 <td>@Html.DisplayFor(modelitem=>item.category)</td>
                 <td>@Html.DisplayFor(modelitem=>item.price)</td>
                 <td>@Html.DisplayFor(modelitem=>item.datetimeadded)</td>
-                <td>@Html.DisplayFor(modelitem=>item.description)</td>
+                @*<td>@Html.DisplayFor(modelitem=>item.description)</td>*@
                 <th>
                     <a asp-action="Edit" asp-route-id="@item.idproducts">Edit</a>
                     <a asp-action="Details" asp-route-id="@item.idproducts">Details</a>
