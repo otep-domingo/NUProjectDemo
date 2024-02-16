@@ -4,6 +4,7 @@
 }
 <h2>Poducts List</h2>
 <a asp-action="Create">Add New Product</a>
+<a asp-action="PrintAll">Print All</a>
 <table class="table">
     <thead>
         <tr>
@@ -30,6 +31,7 @@
                     <a asp-action="Edit" asp-route-id="@item.idproducts">Edit</a>
                     <a asp-action="Details" asp-route-id="@item.idproducts">Details</a>
                     <a asp-action="Delete" asp-route-id="@item.idproducts">Delete</a>
+                    <a asp-action="PrintId" asp-route-id="@item.idproducts">Print</a>
                 </th>
             </tr>
         }
